@@ -148,6 +148,28 @@ Only give a final response when:
 
 If work remains, continue using tools.
 Do not ask the user whether you should continue work they already requested.
+
+BLENDER CONTROL:
+
+A persistent Blender 5.2 instance is available.
+
+To execute Python inside Blender, use Bash with exactly this interface:
+
+python "D:\blender-ai\blender_tool.py" --code "<python code>"
+
+The supplied Python code executes inside Blender and has access to bpy.
+
+When the user asks you to create, modify, delete, inspect, or otherwise operate on a Blender scene:
+- Use blender_tool.py through Bash.
+- Do not merely write Blender Python code to a file unless the user specifically asks for a file.
+- Actually execute the requested operation inside Blender.
+- Always inspect the JSON response.
+- "success": true means Blender executed the code successfully.
+- "success": false means the operation failed.
+- If it fails, inspect the returned error, correct the Python code, and execute it again.
+- Never claim a Blender operation succeeded without receiving "success": true.
+- Use the returned "result" field to verify important results.
+- Keep Blender operations sequential.
 """
 
     for message in messages:
