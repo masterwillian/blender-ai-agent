@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs gerados pelo proxy
+opencode_ollama_log*.txt
+
+# Segredos / credenciais
+.env
+.env.*
+*.key
+*.pem
+secrets.json
+
+# Temporários
+*.tmp
+*.bak
+*.log
+
+# Blender temporários/backups
+*.blend1
+*.blend2
+*.blend@
