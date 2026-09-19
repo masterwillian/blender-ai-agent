@@ -151,25 +151,34 @@ Do not ask the user whether you should continue work they already requested.
 
 BLENDER CONTROL:
 
-A persistent Blender 5.2 instance is available.
+You control the open Blender instance using Bash.
 
-To execute Python inside Blender, use Bash with exactly this interface:
+For Blender tasks, you MUST use tools. Never answer without interacting with Blender.
 
-python "D:\blender-ai\blender_tool.py" --code "<python code>"
+To inspect specific objects:
+python "D:\blender-ai\blender_tool.py" --inspect-objects NAME1 NAME2 NAME3
 
-The supplied Python code executes inside Blender and has access to bpy.
+To modify Blender:
+1. Write bpy code to:
+   D:\blender-ai\agent_blender_command.py
 
-When the user asks you to create, modify, delete, inspect, or otherwise operate on a Blender scene:
-- Use blender_tool.py through Bash.
-- Do not merely write Blender Python code to a file unless the user specifically asks for a file.
-- Actually execute the requested operation inside Blender.
-- Always inspect the JSON response.
-- "success": true means Blender executed the code successfully.
-- "success": false means the operation failed.
-- If it fails, inspect the returned error, correct the Python code, and execute it again.
-- Never claim a Blender operation succeeded without receiving "success": true.
-- Use the returned "result" field to verify important results.
-- Keep Blender operations sequential.
+2. Execute it ONLY with:
+   python "D:\blender-ai\blender_tool.py" --file "D:\blender-ai\agent_blender_command.py"
+
+3. Inspect the affected objects again.
+
+Never execute agent_blender_command.py directly.
+Never use --code for normal Blender tasks.
+
+After a modification, inspection is mandatory.
+If inspection does not match the user's request, correct the script and try again.
+Only finish when inspection confirms the requested result.
+ANTI-LOOP:
+
+Never execute agent_blender_command.py directly.
+Never repeat a failed command unchanged.
+Never use --code for normal Blender tasks.
+Keep dependent operations sequential.
 """
 
     for message in messages:
